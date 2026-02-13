@@ -1,0 +1,412 @@
+// Type definitions
+export type UserRole = 'admin' | 'customer' | 'shop';
+
+export interface Customer {
+  id: string;
+  email: string;
+  role: 'customer';
+  name: string;
+  phone: string;
+  status: 'pending' | 'approved' | 'rejected';
+  employeeId: string;
+  department: string;
+  salary: number;
+  address: string;
+  creditLimit: number;
+  creditUsed: number;
+  creditAvailable: number;
+  createdAt: string;
+}
+
+export interface Shop {
+  id: string;
+  userId: string;
+  shopName: string;
+  ownerName: string;
+  licenseNumber: string;
+  gst: string;
+  address: string;
+  phone: string;
+  status: 'pending' | 'approved' | 'rejected';
+  pendingBalance: number;
+  totalEarnings: number;
+  createdAt: string;
+}
+
+export interface Product {
+  id: string;
+  shopId: string;
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  imageUrl: string;
+  category: string;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface Transaction {
+  id: string;
+  customerId: string;
+  customerName: string;
+  shopId: string;
+  shopName: string;
+  products: Array<{
+    productId: string;
+    productName: string;
+    quantity: number;
+    price: number;
+  }>;
+  totalAmount: number;
+  status: 'pending' | 'completed' | 'failed';
+  month: string;
+  createdAt: string;
+}
+
+export interface MonthlyStatement {
+  id: string;
+  customerId: string;
+  customerName: string;
+  month: string;
+  totalDue: number;
+  paidAmount: number;
+  paymentStatus: 'pending' | 'paid' | 'overdue';
+  dueDate: string;
+  paidAt?: string;
+}
+
+export interface ShopSettlement {
+  id: string;
+  shopId: string;
+  shopName: string;
+  month: string;
+  amount: number;
+  status: 'pending' | 'settled' | 'failed';
+  settledAt?: string;
+}
+
+export interface VerificationRequest {
+  id: string;
+  type: 'customer' | 'shop';
+  entityId: string;
+  name: string;
+  submittedAt: string;
+  details: Record<string, string>;
+}
+
+export const mockCustomers: Customer[] = [
+  {
+    id: 'cust-1',
+    email: 'rajesh.kumar@gov.in',
+    role: 'customer',
+    name: 'Rajesh Kumar',
+    phone: '+91 98765 43210',
+    status: 'approved',
+    employeeId: 'GOV-2024-001',
+    department: 'Revenue Department',
+    salary: 65000,
+    address: '123, MG Road, Bangalore - 560001',
+    creditLimit: 50000,
+    creditUsed: 12500,
+    creditAvailable: 37500,
+    createdAt: '2024-01-15T10:30:00Z',
+  },
+  {
+    id: 'cust-2',
+    email: 'priya.sharma@gov.in',
+    role: 'customer',
+    name: 'Priya Sharma',
+    phone: '+91 87654 32109',
+    status: 'pending',
+    employeeId: 'GOV-2024-045',
+    department: 'Education Department',
+    salary: 55000,
+    address: '456, Park Street, Kolkata - 700016',
+    creditLimit: 40000,
+    creditUsed: 0,
+    creditAvailable: 40000,
+    createdAt: '2024-02-01T14:20:00Z',
+  },
+  {
+    id: 'cust-3',
+    email: 'amit.patel@gov.in',
+    role: 'customer',
+    name: 'Amit Patel',
+    phone: '+91 76543 21098',
+    status: 'approved',
+    employeeId: 'GOV-2023-189',
+    department: 'Health Department',
+    salary: 72000,
+    address: '789, Ring Road, Ahmedabad - 380015',
+    creditLimit: 60000,
+    creditUsed: 45000,
+    creditAvailable: 15000,
+    createdAt: '2023-11-20T09:15:00Z',
+  },
+];
+
+export const mockShops: Shop[] = [
+  {
+    id: 'shop-1',
+    userId: 'user-shop-1',
+    shopName: 'Krishna Electronics',
+    ownerName: 'Venkat Rao',
+    licenseNumber: 'LIC-KA-2024-001',
+    gst: '29ABCDE1234F1Z5',
+    address: '45, Commercial Street, Bangalore - 560001',
+    phone: '+91 98123 45678',
+    status: 'approved',
+    pendingBalance: 28500,
+    totalEarnings: 245000,
+    createdAt: '2023-12-01T11:00:00Z',
+  },
+  {
+    id: 'shop-2',
+    userId: 'user-shop-2',
+    shopName: 'Sharma Groceries',
+    ownerName: 'Ramesh Sharma',
+    licenseNumber: 'LIC-KA-2024-015',
+    gst: '29KLMNO3456P3Q7',
+    address: '78, Market Road, Mysore - 570001',
+    phone: '+91 87612 34567',
+    status: 'approved',
+    pendingBalance: 15200,
+    totalEarnings: 178500,
+    createdAt: '2024-01-10T08:30:00Z',
+  },
+  {
+    id: 'shop-3',
+    userId: 'user-shop-3',
+    shopName: 'Fashion Hub',
+    ownerName: 'Meera Reddy',
+    licenseNumber: 'LIC-KA-2024-032',
+    gst: '29FGHIJ5678K2L6',
+    address: '23, Brigade Road, Bangalore - 560025',
+    phone: '+91 76501 23456',
+    status: 'pending',
+    pendingBalance: 0,
+    totalEarnings: 0,
+    createdAt: '2024-02-05T16:45:00Z',
+  },
+];
+
+export const mockProducts: Product[] = [
+  {
+    id: 'prod-1',
+    shopId: 'shop-1',
+    name: 'Samsung Galaxy A54',
+    description: '128GB, 8GB RAM, 5G Enabled',
+    price: 32999,
+    stock: 15,
+    imageUrl: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400',
+    category: 'Electronics',
+    isActive: true,
+    createdAt: '2024-01-15T10:00:00Z',
+  },
+  {
+    id: 'prod-2',
+    shopId: 'shop-1',
+    name: 'Sony Headphones WH-1000XM4',
+    description: 'Wireless Noise Cancelling',
+    price: 24990,
+    stock: 8,
+    imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400',
+    category: 'Electronics',
+    isActive: true,
+    createdAt: '2024-01-15T10:30:00Z',
+  },
+  {
+    id: 'prod-3',
+    shopId: 'shop-1',
+    name: 'Apple iPad 10th Gen',
+    description: '64GB, Wi-Fi, Silver',
+    price: 44900,
+    stock: 5,
+    imageUrl: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400',
+    category: 'Electronics',
+    isActive: true,
+    createdAt: '2024-01-20T14:00:00Z',
+  },
+  {
+    id: 'prod-4',
+    shopId: 'shop-2',
+    name: 'Basmati Rice Premium',
+    description: '5kg Pack, Aged',
+    price: 650,
+    stock: 50,
+    imageUrl: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400',
+    category: 'Groceries',
+    isActive: true,
+    createdAt: '2024-01-25T09:00:00Z',
+  },
+  {
+    id: 'prod-5',
+    shopId: 'shop-2',
+    name: 'Organic Cooking Oil',
+    description: '5L, Cold Pressed',
+    price: 890,
+    stock: 30,
+    imageUrl: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400',
+    category: 'Groceries',
+    isActive: true,
+    createdAt: '2024-01-25T09:30:00Z',
+  },
+  {
+    id: 'prod-6',
+    shopId: 'shop-2',
+    name: 'Assorted Dry Fruits',
+    description: '1kg Mixed Pack',
+    price: 1250,
+    stock: 25,
+    imageUrl: 'https://images.unsplash.com/photo-1608797178974-15b35a64ede9?w=400',
+    category: 'Groceries',
+    isActive: true,
+    createdAt: '2024-01-28T11:00:00Z',
+  },
+];
+
+export const mockTransactions: Transaction[] = [
+  {
+    id: 'txn-1',
+    customerId: 'cust-1',
+    customerName: 'Rajesh Kumar',
+    shopId: 'shop-1',
+    shopName: 'Krishna Electronics',
+    products: [
+      { productId: 'prod-2', productName: 'Sony Headphones WH-1000XM4', quantity: 1, price: 24990 },
+    ],
+    totalAmount: 24990,
+    status: 'completed',
+    month: '2024-02',
+    createdAt: '2024-02-05T15:30:00Z',
+  },
+  {
+    id: 'txn-2',
+    customerId: 'cust-1',
+    customerName: 'Rajesh Kumar',
+    shopId: 'shop-2',
+    shopName: 'Sharma Groceries',
+    products: [
+      { productId: 'prod-4', productName: 'Basmati Rice Premium', quantity: 2, price: 650 },
+      { productId: 'prod-5', productName: 'Organic Cooking Oil', quantity: 1, price: 890 },
+    ],
+    totalAmount: 2190,
+    status: 'completed',
+    month: '2024-02',
+    createdAt: '2024-02-08T11:20:00Z',
+  },
+  {
+    id: 'txn-3',
+    customerId: 'cust-3',
+    customerName: 'Amit Patel',
+    shopId: 'shop-1',
+    shopName: 'Krishna Electronics',
+    products: [
+      { productId: 'prod-1', productName: 'Samsung Galaxy A54', quantity: 1, price: 32999 },
+      { productId: 'prod-3', productName: 'Apple iPad 10th Gen', quantity: 1, price: 44900 },
+    ],
+    totalAmount: 77899,
+    status: 'completed',
+    month: '2024-02',
+    createdAt: '2024-02-10T16:45:00Z',
+  },
+];
+
+export const mockMonthlyStatements: MonthlyStatement[] = [
+  {
+    id: 'stmt-1',
+    customerId: 'cust-1',
+    customerName: 'Rajesh Kumar',
+    month: '2024-01',
+    totalDue: 18500,
+    paidAmount: 18500,
+    paymentStatus: 'paid',
+    dueDate: '2024-02-05',
+    paidAt: '2024-02-03T10:00:00Z',
+  },
+  {
+    id: 'stmt-2',
+    customerId: 'cust-1',
+    customerName: 'Rajesh Kumar',
+    month: '2024-02',
+    totalDue: 27180,
+    paidAmount: 0,
+    paymentStatus: 'pending',
+    dueDate: '2024-03-05',
+  },
+  {
+    id: 'stmt-3',
+    customerId: 'cust-3',
+    customerName: 'Amit Patel',
+    month: '2024-02',
+    totalDue: 77899,
+    paidAmount: 0,
+    paymentStatus: 'pending',
+    dueDate: '2024-03-05',
+  },
+];
+
+export const mockShopSettlements: ShopSettlement[] = [
+  {
+    id: 'settle-1',
+    shopId: 'shop-1',
+    shopName: 'Krishna Electronics',
+    month: '2024-01',
+    amount: 45000,
+    status: 'settled',
+    settledAt: '2024-02-10T14:00:00Z',
+  },
+  {
+    id: 'settle-2',
+    shopId: 'shop-2',
+    shopName: 'Sharma Groceries',
+    month: '2024-01',
+    amount: 12500,
+    status: 'settled',
+    settledAt: '2024-02-10T14:30:00Z',
+  },
+  {
+    id: 'settle-3',
+    shopId: 'shop-1',
+    shopName: 'Krishna Electronics',
+    month: '2024-02',
+    amount: 102889,
+    status: 'pending',
+  },
+  {
+    id: 'settle-4',
+    shopId: 'shop-2',
+    shopName: 'Sharma Groceries',
+    month: '2024-02',
+    amount: 2190,
+    status: 'pending',
+  },
+];
+
+export const mockVerificationRequests: VerificationRequest[] = [
+  {
+    id: 'ver-1',
+    type: 'customer',
+    entityId: 'cust-2',
+    name: 'Priya Sharma',
+    submittedAt: '2024-02-01T14:20:00Z',
+    details: {
+      'Employee ID': 'GOV-2024-045',
+      'Department': 'Education Department',
+      'Salary': '₹55,000',
+    },
+  },
+  {
+    id: 'ver-2',
+    type: 'shop',
+    entityId: 'shop-3',
+    name: 'Fashion Hub',
+    submittedAt: '2024-02-05T16:45:00Z',
+    details: {
+      'Owner': 'Meera Reddy',
+      'License': 'LIC-KA-2024-032',
+      'Address': '23, Brigade Road, Bangalore',
+    },
+  },
+];

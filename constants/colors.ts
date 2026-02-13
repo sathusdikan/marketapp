@@ -1,0 +1,52 @@
+export default {
+  primary: '#0A1628',
+  primaryDark: '#050D18',
+  primaryLight: '#132743',
+  accent: '#3B82F6',
+  accentLight: '#60A5FA',
+  accentDark: '#2563EB',
+  
+  success: '#10B981',
+  successLight: '#D1FAE5',
+  successDark: '#059669',
+  warning: '#F59E0B',
+  warningLight: '#FEF3C7',
+  warningDark: '#D97706',
+  danger: '#EF4444',
+  dangerLight: '#FEE2E2',
+  dangerDark: '#DC2626',
+  
+  background: '#050D18',
+  backgroundDark: '#030810',
+  surface: '#0F1D32',
+  surfaceSecondary: '#152238',
+  surfaceTertiary: '#1A2D4A',
+  
+  text: '#F1F5F9',
+  textSecondary: '#94A3B8',
+  textLight: '#CBD5E1',
+  textInverse: '#FFFFFF',
+  
+  border: '#1E3A5F',
+  borderLight: '#234B77',
+  borderDark: '#152238',
+  
+  adminAccent: '#8B5CF6',
+  adminLight: '#1E1639',
+  shopAccent: '#F97316',
+  shopLight: '#2D1E14',
+  customerAccent: '#3B82F6',
+  customerLight: '#0F1D32',
+  
+  gold: '#FBBF24',
+  goldDark: '#D97706',
+  silver: '#94A3B8',
+  
+  gradientPrimary: ['#0A1628', '#132743'] as const,
+  gradientAccent: ['#3B82F6', '#60A5FA'] as const,
+  gradientAdmin: ['#8B5CF6', '#A78BFA'] as const,
+  gradientShop: ['#F97316', '#FB923C'] as const,
+  gradientCustomer: ['#3B82F6', '#60A5FA'] as const,
+  gradientDark: ['#050D18', '#0A1628'] as const,
+  gradientCard: ['#0F1D32', '#152238', '#0F1D32'] as const,
+};
