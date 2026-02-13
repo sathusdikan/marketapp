@@ -31,7 +31,7 @@
       [
         "expo-router",
         {
-          "origin": "https://rork.com/"
+          "origin": "https://marketapp-alpha.vercel.app"
         }
       ],
       "expo-font",

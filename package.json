@@ -8,6 +8,8 @@
     "start-web-dev": "DEBUG=expo* bunx rork start -p 4lhdks2o37ntbd2tpjgvo --web --tunnel",
     "build": "expo export -p web",
     "build:web": "expo export -p web",
+    "build:static": "npx expo export -p web",
+    "vercel-build": "npx expo export -p web",
     "lint": "expo lint"
   },
   "dependencies": {
