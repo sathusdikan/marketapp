@@ -3,9 +3,10 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "bunx rork start -p 4lhdks2o37ntbd2tpjgvo --tunnel",
-    "start-web": "bunx rork start -p 4lhdks2o37ntbd2tpjgvo --web --tunnel",
-    "start-web-dev": "DEBUG=expo* bunx rork start -p 4lhdks2o37ntbd2tpjgvo --web --tunnel",
+    "start": "npx rork start -p 4lhdks2o37ntbd2tpjgvo --tunnel",
+    "start-web": "npx rork start -p 4lhdks2o37ntbd2tpjgvo --web --tunnel",
+    "start-web-local": "npx expo start --web",
+    "start-web-dev": "DEBUG=expo* npx rork start -p 4lhdks2o37ntbd2tpjgvo --web --tunnel",
     "build": "expo export -p web",
     "build:web": "expo export -p web",
     "build:static": "npx expo export -p web",
@@ -37,7 +38,7 @@
     "expo-symbols": "~1.0.8",
     "expo-system-ui": "~6.0.9",
     "expo-web-browser": "~15.0.10",
-    "lucide-react-native": "^0.447.0",
+    "lucide-react-native": "^0.460.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
@@ -56,6 +57,11 @@
     "eslint": "^9.31.0",
     "eslint-config-expo": "~10.0.0",
     "typescript": "~5.9.2"
+  },
+  "overrides": {
+    "lucide-react-native": {
+      "react": "^19.0.0"
+    }
   },
   "private": true
 }
